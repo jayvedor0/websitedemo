@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Amigos</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+/* ===== GLOBAL ===== */
+body{
+  background:#0d0d0d;
+  color:#e5e5e5;
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+}
+
+/* ===== TOP & BOTTOM DESIGN (Pizza Color) ===== */
+.top-accent,
+.bottom-accent{
+  position:fixed;
+  left:0;
+  width:100%;
+  height:70px;
+  z-index:1;
+  pointer-events:none;
+}
+
+.top-accent{
+  top:0;
+  background:linear-gradient(to bottom, rgba(255,179,71,0.5), transparent);
+}
+
+.bottom-accent{
+  bottom:0;
+  background:linear-gradient(to top, rgba(255,179,71,0.5), transparent);
+}
+
+/* ===== SEMI-CIRCLE PIZZA ===== */
+.semi-circle{
+  position:fixed;
+  left:-250px;
+  top:50%;
+  transform:translateY(-50%);
+  width:500px;
+  height:500px;
+  background:#3d3d3d;
+  border-radius:50%;
+  overflow:hidden;
+  z-index:2;
+}
+
+.rotating-pizza{
+  position:absolute;
+  width:420px;
+  height:420px;
+  top:40px;
+  left:40px;
+  animation:spinPizza 25s linear infinite;
+  filter:drop-shadow(0 0 25px rgba(255,179,71,0.7));
+}
+
+@keyframes spinPizza{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+
+/* ===== LEFT CURVE (Optional visual) ===== */
+.left-curve{
+  position:absolute;
+  left:-300px;
+  top:0;
+  width:700px;
+  height:100%;
+  background:silver;
+  border-radius:50%;
+  opacity:.25;
+  z-index:1;
+}
+
+/* ===== EXISTING PIZZA CENTER ===== */
+.pizza-container{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:5;
+}
+
+.pizza-spinner{
+  width:600px;
+  height:600px;
+  border-radius:50%;
+  background:url('pizza.png') center/cover;
+  animation:spin 30s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}
+
+.title{
+  color:#FFB347;
+  font-size:4rem;
+  font-family:'Great Vibes',cursive;
+  text-align:center;
+  margin-top:20px;
+}
+
+/* ===== NAV ===== */
+.menu-nav{
+  position:absolute;
+  top:50%;
+  right:40px;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+  z-index:10;
+}
+
+.menu-item{
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+}
+
+.menu-item img{
+  width:70px;
+  margin-right:10px;
+  filter:drop-shadow(0 0 8px #FFB347);
+}
+
+.menu-item.active img{
+  transform:translateX(-25px) scale(1.1);
+}
+
+.menu-item span{
+  color:#FFB347;
+  font-size:1.2rem;
+  font-weight:600;
+}
+
+/* ===== TAB AREAS ===== */
+.tab-area{
+  display:none;
+  position:absolute;
+  top:50%;
+  left:55%;
+  transform:translate(-50%,-50%);
+  width:45%;
+  background:rgba(22,22,22,.95);
+  border-radius:15px;
+  padding:40px;
+  box-shadow:0 0 30px rgba(255,179,71,.35);
+  z-index:5;
+}
+
+/* ===== TEAM ===== */
+.team-area{
+  width:60%;
+}
+
+.team-container{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+}
+
+.team-card{
+  background:rgba(15,15,15,.9);
+  border:2px solid #FFB347;
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 0 18px rgba(255,179,71,.4);
+  transition:.3s;
+}
+
+.team-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 28px rgba(255,179,71,.7);
+}
+
+.team-card img{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #FFD580;
+  margin-bottom:15px;
+}
+
+.team-card h5{
+  color:#FFD580;
+  margin-bottom:5px;
+}
+
+.team-card p{
+  font-size:.9rem;
+  opacity:.85;
+}
+
+/* ===== FORM ===== */
+input,textarea{
+  background:#111!important;
+  color:#fff!important;
+  border:1px solid #FFB347!important;
+}
+
+input:focus,textarea:focus{
+  box-shadow:0 0 10px rgba(255,179,71,.6)!important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+  .menu-nav{display:none}
+  .pizza-spinner{width:350px;height:350px}
+  .tab-area,.team-area{width:90%;left:50%}
+  .team-container{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-accent"></div>
+<div class="bottom-accent"></div>
+<div class="left-curve"></div>
+
+<!-- SEMI-CIRCLE WITH ROTATING PIZZA -->
+<div class="semi-circle">
+  <img src="pizza.png" class="rotating-pizza" alt="Rotating Pizza">
+</div>
+
+<!-- Pizza -->
+<div class="pizza-container" id="pizzaContainer">
+  <div class="pizza-spinner"></div>
+  <h1 class="title" id="welcomeText">Welcome to The Amigos</h1>
+</div>
+
+<!-- Navigation -->
+<div class="menu-nav">
+  <div class="menu-item" data-target="home"><img src="cartoonpizza.png"><span>Home</span></div>
+  <div class="menu-item" data-target="menu"><img src="cartoonpizza.png"><span>Menu</span></div>
+  <div class="menu-item" data-target="history"><img src="cartoonpizza.png"><span>History</span></div>
+  <div class="menu-item" data-target="team"><img src="cartoonpizza.png"><span>Team</span></div>
+  <div class="menu-item" data-target="contact"><img src="cartoonpizza.png"><span>Contact</span></div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="tab-area">
+  <h3 class="text-warning">Welcome!</h3>
+  <p>Where friendship, laughter, and pizza meet.</p>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="tab-area">
+  <h3 class="text-warning mb-3">Our Menu</h3>
+
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="Margherita" data-price="10">🍕 Margherita – $10</button>
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="Pepperoni Supreme" data-price="12">🍕 Pepperoni Supreme – $12</button>
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="Four Cheese" data-price="11">🍕 Four Cheese – $11</button>
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="Hawaiian Delight" data-price="13">🍕 Hawaiian Delight – $13</button>
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="BBQ Chicken" data-price="14">🍕 BBQ Chicken – $14</button>
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="Veggie Garden" data-price="11">🍕 Veggie Garden – $11</button>
+  <button class="btn btn-outline-warning w-100 mb-2 add-to-cart" data-name="Spicy Italian" data-price="15">🍕 Spicy Italian – $15</button>
+  <button class="btn btn-outline-warning w-100 mb-3 add-to-cart" data-name="Truffle Mushroom" data-price="16">🍕 Truffle Mushroom – $16</button>
+
+  <h5 class="text-warning">🛒 Cart</h5>
+  <ul id="cartItems" class="list-group mb-2"></ul>
+  <p id="cartTotal" class="text-warning fw-bold">Total: $0</p>
+
+  <!-- ORDER BUTTON -->
+  <button id="orderNow" class="btn btn-warning w-100 mt-3">🍕 Order Now</button>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="tab-area">
+  <h3 class="text-warning mb-3">Our Story</h3>
+  <p>
+    The Amigos began as four friends sharing late nights, homemade dough,
+    and a passion for good food. What started in a small kitchen slowly
+    turned into a shared dream of creating a place where people could
+    feel warmth, laughter, and belonging.
+  </p>
+  <p>
+    Today, The Amigos stands as a symbol of friendship and dedication.
+    Every recipe carries a memory, every slice reflects teamwork, and
+    every guest becomes part of our growing family.
+  </p>
+</div>
+
+<!-- TEAM -->
+<div id="team" class="tab-area team-area">
+  <h3 class="text-warning mb-4">Meet The Amigos</h3>
+
+  <div class="team-container">
+    <div class="team-card">
+      <img src="jay.jpg" alt="Jay">
+      <h5>Jay</h5>
+      <p>Owner & Visionary</p>
+    </div>
+    <div class="team-card">
+      <img src="lance.png" alt="Lance">
+      <h5>Lance</h5>
+      <p>Delivery Meister</p>
+    </div>
+    <div class="team-card">
+      <img src="raven.jpg" alt="Raven">
+      <h5>Raven</h5>
+      <p>Chef & Baker</p>
+    </div>
+    <div class="team-card">
+      <img src="jhonie.jpg" alt="Jhonie">
+      <h5>Jhonie</h5>
+      <p>Server & Heart of Charm</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="tab-area">
+  <h3 class="text-warning">Contact Us</h3>
+  <form id="contactForm">
+    <input class="form-control mb-2" placeholder="Your Name" required>
+    <input type="email" class="form-control mb-2" placeholder="Email" required>
+    <textarea class="form-control mb-2" placeholder="Message" required></textarea>
+    <button class="btn btn-outline-warning w-100">Send</button>
+  </form>
+  <p id="contactStatus" class="mt-2 text-center"></p>
+</div>
+
+<!-- jQuery Logic -->
+<script>
+$(function(){
+  let firstClick=true;
+  let cart=[];
+
+  $('.menu-item').on('click',function(){
+    const target=$(this).data('target');
+    $('.menu-item').removeClass('active');
+    $(this).addClass('active');
+    $('.tab-area').hide();
+
+    if(firstClick){
+      firstClick=false;
+      $('#welcomeText').fadeOut(600);
+      $('#pizzaContainer').animate({left:'25%'},900,function(){
+        $('#'+target).fadeIn(600);
+      });
+    }else{
+      $('#'+target).fadeIn(600);
+    }
+  });
+
+  $('.pizza-spinner').hover(
+    ()=>$('.pizza-spinner').css('animation-play-state','paused'),
+    ()=>$('.pizza-spinner').css('animation-play-state','running')
+  );
+
+  $('.add-to-cart').on('click',function(){
+    cart.push({name:$(this).data('name'),price:$(this).data('price')});
+    updateCart();
+  });
+
+  function updateCart(){
+    let total=0;
+    $('#cartItems').empty();
+    cart.forEach(i=>{
+      total+=i.price;
+      $('#cartItems').append(`<li class="list-group-item bg-dark text-light d-flex justify-content-between">${i.name}<span>$${i.price}</span></li>`);
+    });
+    $('#cartTotal').text(`Total: $${total}`);
+  }
+
+  // Order button logic
+  $('#orderNow').on('click', function(){
+    if(cart.length === 0){
+      alert("Your cart is empty! Please add some pizza first 🍕");
+    } else {
+      let items = cart.map(i => `${i.name} ($${i.price})`).join(", ");
+      alert(`Thank you for your order!\n\nItems: ${items}\nTotal: $${cart.reduce((a,b)=>a+b.price,0)}`);
+      cart = [];
+      updateCart();
+    }
+  });
+
+  $('#contactForm').on('submit',function(e){
+    e.preventDefault();
+    $('#contactStatus').text('Message sent successfully!').addClass('text-success');
+    this.reset();
+  });
+});
+</script>
+
+</body>
+</html>

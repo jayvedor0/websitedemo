@@ -1,0 +1,15 @@
+/* Hover glow for team images */
+.tab-area#team img {
+  transition: all 0.4s ease;
+}
+
+.tab-area#team img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.6);
+  border-color: #ffd700;
+}
+
+.tab-area#team h5:hover {
+  text-shadow: 0 0 8px #ffd700;
+  transition: text-shadow 0.3s ease;
+}
